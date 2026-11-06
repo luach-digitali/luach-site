@@ -68,19 +68,34 @@ nav.top a.l:hover{color:var(--paper)}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .ver{margin-top:18px;font-size:14px;color:var(--mut)}
 
-/* carousel */
-.show{position:relative;border-radius:22px;padding:10px;background:linear-gradient(145deg,rgba(232,195,116,.55),rgba(232,195,116,.08) 40%,rgba(232,195,116,.4));box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 80px rgba(232,195,116,.08)}
-.show .screen{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+/* carousel in a wooden TV frame */
+.show{position:relative}
+.show-title{text-align:center;font-family:var(--f-display);font-weight:700;font-size:clamp(22px,2.6vw,32px);margin:0 0 24px;line-height:1.25}
+.tv{--fw:clamp(12px,2.1vw,26px);position:relative;border:var(--fw) solid;border-color:rgba(255,236,205,.24) rgba(0,0,0,.30) rgba(0,0,0,.46) rgba(0,0,0,.14);border-radius:8px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='260'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008 .28' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .13 0 0 0 0 .06 0 0 0 0 .02 0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 9px,rgba(255,220,170,.05) 9px 10px),linear-gradient(135deg,#8a5427,#5e3513 35%,#7b4a21 60%,#4b2a10);
+  box-shadow:0 0 0 1px #1c0e05,0 40px 90px rgba(0,0,0,.65),0 0 70px rgba(232,195,116,.07),inset 0 0 0 1px rgba(255,225,170,.28),inset 0 0 22px rgba(0,0,0,.55)}
+.bezel{padding:clamp(3px,.5vw,6px);background:#0a0603;border-radius:3px;box-shadow:0 0 0 2px #c9a24b,0 0 0 3px #5a3d0e,inset 0 0 16px #000}
+.screen{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;border-radius:2px}
+.screen::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.13) 0,rgba(255,255,255,.03) 28%,transparent 42%);box-shadow:inset 0 0 40px rgba(0,0,0,.35)}
 .show .slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;margin:0}
 .show .slide.on{opacity:1}
 .show img{display:block;width:100%;height:100%;object-fit:cover}
 .show .cap{position:absolute;inset-inline:0;bottom:0;padding:34px 18px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));font-size:14px;color:#fff;text-align:center}
-.dots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:14px}
+.dots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:20px}
 .dot{width:30px;height:30px;padding:0;border:0;background:transparent;cursor:pointer;display:grid;place-items:center}
 .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.28);transition:all .25s}
 .dot:hover::after{background:rgba(255,255,255,.6)}
 .dot[aria-current="true"]::after{width:26px;border-radius:6px;background:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:24px}
+.chip{font:700 15px var(--f-body);color:var(--mut);background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:999px;padding:7px 16px;cursor:pointer;transition:all .2s}
+.chip:hover{color:var(--paper);border-color:var(--line)}
+.chip[aria-current="true"]{background:linear-gradient(135deg,#f6d98f,var(--gold) 50%,var(--gold-d));color:#241903;border-color:transparent}
+.show.wide{max-width:980px;margin:48px auto 0}
+.mid{margin-top:84px;font-size:clamp(28px,3.4vw,42px);font-weight:700;color:var(--paper)}
 @media(prefers-reduced-motion:reduce){.show .slide{transition:none}}
+
+.vid{max-width:980px;margin:48px auto 0}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 /* trust strip */
 .strip{padding-block:30px 10px}
@@ -192,7 +207,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
 
 <nav class="top"><div class="wrap">
   <a class="brand" href="#top"><img src="img/icon.png" alt="">הלוח הדיגיטלי</a>
-  <a class="l" href="#why">למה</a><a class="l" href="#special">מה מיוחד</a><a class="l" href="#software">הפונקציות</a><a class="l" href="#app">האפליקציה</a><a class="l" href="#themes">מעגל השנה</a><a class="l" href="#contact">צור קשר</a>
+  <a class="l" href="#why">למה</a><a class="l" href="#software">הפונקציות</a><a class="l" href="#app">האפליקציה</a><a class="l" href="#themes">מעגל השנה</a><a class="l" href="#contact">צור קשר</a>
   <a class="btn pri sm" href="#download">הורדה חינם</a>
 </div></nav>
 
@@ -206,28 +221,28 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
     <p class="lead">הלוח הדיגיטלי: לוח זמנים והודעות לבית הכנסת. אין צורך באינטרנט, חינם לגמרי, מסכים מתחלפים לפי מעגל השנה, אפליקציה וקו טלפוני למתפללים שרוצים להתעדכן בזמנים גם מהבית, וממשק ניהול קל לכל גבאי.</p>
     <div class="cta">
       <a class="btn pri" href="#download"><svg><use href="#i-down"/></svg>להורדה חינם</a>
-      <a class="btn sec" href="#special">מה מיוחד בלוח</a>
+      <a class="btn sec" href="#why">למה הלוח הדיגיטלי</a>
     </div>
-    <div class="ver">גרסה 2.4.0 · Windows · Android</div>
+    <div class="ver">· Windows · Android</div>
   </div>
 
   <div>
-    <div class="show" id="show">
-      <div class="screen" id="screen" aria-live="off">
+    <div class="show">
+      <p class="show-title gold-text">ערכות נושא מוכנות ובהתאמה אישית מלאה</p>
+      <div class="tv"><div class="bezel"><div class="screen" aria-live="off">
         <figure class="slide on"><img src="img/shot-01.jpg" alt="הלוח בעיצוב שמנת וזהב, עם זמני תפילות וזמני היום" width="1600" height="900" fetchpriority="high"><figcaption class="cap">שמנת וזהב</figcaption></figure>
         <figure class="slide"><img src="img/shot-02.jpg" alt="הלוח בעיצוב ספיר, עם המניין הבא וספירה לאחור" width="1600" height="900" loading="lazy"><figcaption class="cap">ספיר, עם ספירה לאחור למניין הבא</figcaption></figure>
         <figure class="slide"><img src="img/shot-03.jpg" alt="הלוח בעיצוב עור סגול ופרגמנט" width="1600" height="900" loading="lazy"><figcaption class="cap">עור סגול ופרגמנט</figcaption></figure>
         <figure class="slide"><img src="img/shot-04.jpg" alt="הלוח בעיצוב בורדו עם שעון" width="1600" height="900" loading="lazy"><figcaption class="cap">בורדו</figcaption></figure>
         <figure class="slide"><img src="img/shot-05.jpg" alt="הלוח בעיצוב טורקיז" width="1600" height="900" loading="lazy"><figcaption class="cap">טורקיז</figcaption></figure>
         <figure class="slide"><img src="img/shot-06.jpg" alt="הלוח בעיצוב אמרלד עם ספירה לאחור" width="1600" height="900" loading="lazy"><figcaption class="cap">אמרלד</figcaption></figure>
-        <figure class="slide"><img src="img/shot-07.jpg" alt="מסך חג שמחת תורה עם תמונה והודעה" width="1600" height="900" loading="lazy"><figcaption class="cap">מסך חג: שמחת תורה</figcaption></figure>
-        <figure class="slide"><img src="img/shot-08.jpg" alt="לוח הנצחה לעילוי נשמת נפטרים" width="1600" height="900" loading="lazy"><figcaption class="cap">לוח הנצחה</figcaption></figure>
-        <figure class="slide"><img src="img/shot-09.jpg" alt="לוח הנצחה עם שורת עדכונים" width="1600" height="900" loading="lazy"><figcaption class="cap">לוח הנצחה, עם שורת עדכונים</figcaption></figure>
+        <figure class="slide"><img src="img/shot-00.jpg" alt="לוח הנצחה בעיצוב חום וזהב" width="1600" height="900" loading="lazy"><figcaption class="cap">לוח הנצחה, עיצוב נוסף</figcaption></figure>
+        <figure class="slide"><img src="img/shot-09.jpg" alt="לוח הנצחה עם שורת עדכונים" width="1600" height="900" loading="lazy"><figcaption class="cap">לוח הנצחה</figcaption></figure>
         <figure class="slide"><img src="img/shot-10.jpg" alt="מסך תוכן חופשי עם פסוק בכותרת" width="1600" height="900" loading="lazy"><figcaption class="cap">עץ חיים</figcaption></figure>
         <figure class="slide"><img src="img/shot-11.jpg" alt="הלוח עם עמודי שיש ווילון" width="1600" height="900" loading="lazy"><figcaption class="cap">עמודים ווילון</figcaption></figure>
-      </div>
+      </div></div></div>
+      <div class="dots" data-nav role="group" aria-label="בחירת צילום מסך"></div>
     </div>
-    <div class="dots" id="dots" role="group" aria-label="בחירת צילום מסך"></div>
   </div>
 </div></header>
 
@@ -237,10 +252,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
   <div class="pillar"><div class="ico"><svg><use href="#i-hand"/></svg></div><div><b>קל לכל גבאי</b><span>ממשק ניהול פשוט, גם לגבאי בן שמונים.</span></div></div>
 </div></div>
 
-<section id="why"><div class="wrap">
+<section id="why" class="band"><div class="wrap">
   <div class="intro">
     <div class="eyebrow">למה הלוח הדיגיטלי?</div>
-    <h2>הלוח הדיגיטלי תמיד מעודכן!!.</h2>
+    <h2>הלוח הדיגיטלי תמיד מעודכן!!</h2>
     <p class="sub">זמני השקיעה משתנים כל יום, מניינים זזים עם עונות השנה, ושיעור מתבטל ברגע האחרון. הלוח מחשב את הזמנים אוטומטית ומאפשר לשנות כל דבר בדקה.</p>
   </div>
   <div class="feat" style="margin-top:36px">
@@ -248,14 +263,8 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
     <article><div class="ico"><svg><use href="#i-bell"/></svg></div><h3>עדכון בקליק</h3><p>שיעור בוטל או מניין הוקדם? מעדכנים מהבית וזה עולה מיד על המסך.</p></article>
     <article><div class="ico"><svg><use href="#i-clock"/></svg></div><h3>המתפלל מעודכן גם מהבית</h3><p>המניין הבא וכמה זמן נשאר עד אליו, מה חדש בבית הכנסת? בקו הטלפוני או באפליקציה גם מהבית.</p></article>
   </div>
-</div></section>
-
-<section id="special" class="band"><div class="wrap">
-  <div class="intro">
-    <div class="eyebrow">מה מיוחד בלוח</div>
-    <h2>אין צורך באינטרנט כלל. חינמי לגמרי בלי כוכביות*.</h2>
-    <p class="sub">שלושה דברים שהופכים את הלוח הדיגיטלי לבחירה הנכונה לכל בית כנסת, קטן או גדול.</p>
-  </div>
+  <h3 class="mid">אין צורך באינטרנט כלל. חינמי לגמרי בלי כוכביות*</h3>
+  <p class="sub">שלושה דברים שהופכים את הלוח הדיגיטלי לבחירה הנכונה לכל בית כנסת, קטן או גדול.</p>
   <div class="spot">
     <div class="sp">
       <div class="ico"><svg><use href="#i-wifi-off"/></svg></div>
@@ -280,7 +289,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
     <div class="sp wide">
       <div class="ico"><svg><use href="#i-phone"/></svg></div>
       <h3>קו טלפוני לבית הכנסת</h3>
-      <p>אפשר ליצור קו טלפוני לבית הכנסת, שמתעדכן אוטומטית מהלוח. מתפללים שמזיקים פלאפון כשר מתקשרים ושומעים את הזמנים, המניינים הקרובים וההודעות, בלי שאף אחד צריך לעדכן אותו בנפרד.</p>
+      <p>אפשר ליצור קו טלפוני לבית הכנסת, שמתעדכן אוטומטית מהלוח. מתפללים שמחזיקים פלאפון כשר מתקשרים ושומעים את הזמנים, המניינים הקרובים וההודעות, בלי שאף אחד צריך לעדכן אותו בנפרד.</p>
       <ul>
         <li><b>מתעדכן לבד</b> מהקו, בכל שינוי שהגבאי עושה בלוח.</li>
         <li><b>זמני היום ושעות המניינים,</b> כולל המניינים הבאים להיום.</li>
@@ -353,15 +362,32 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
   <div class="intro">
     <div class="eyebrow">מעגל השנה</div>
     <h2>מסכים מתחלפים, ערכות נושא מובנות</h2>
-    <p class="sub">הלוח מחליף מסכים לפי מעגל השנה: זמני היום והתפילות, מסך חג, לוח הנצחה ותוכן חופשי. בגוונים ובעיצובים שמתאימים לכל בית כנסת.</p>
+    <p class="sub">הלוח מחליף מסכים לפי מעגל השנה: שבת, חגים, צומות וימי זיכרון, כל אחד במסך ייעודי שמופיע בדיוק בזמנו. הכול ניתן להתאמה אישית מלאה.</p>
   </div>
-  <div class="gal">
-    <figure><img src="img/shot-07.jpg" alt="מסך חג שמחת תורה" width="1600" height="900" loading="lazy"><figcaption>מסך חג</figcaption></figure>
-    <figure><img src="img/shot-08.jpg" alt="לוח הנצחה" width="1600" height="900" loading="lazy"><figcaption>לוח הנצחה</figcaption></figure>
-    <figure><img src="img/shot-10.jpg" alt="מסך תוכן חופשי" width="1600" height="900" loading="lazy"><figcaption>מסך תוכן חופשי</figcaption></figure>
-    <figure><img src="img/shot-11.jpg" alt="עמודי שיש ווילון" width="1600" height="900" loading="lazy"><figcaption>עמודים ווילון</figcaption></figure>
-    <figure><img src="img/shot-04.jpg" alt="עיצוב בורדו" width="1600" height="900" loading="lazy"><figcaption>בורדו</figcaption></figure>
-    <figure><img src="img/shot-06.jpg" alt="עיצוב אמרלד" width="1600" height="900" loading="lazy"><figcaption>אמרלד</figcaption></figure>
+  <div class="show wide">
+    <div class="tv"><div class="bezel"><div class="screen" aria-live="off">
+        <figure class="slide on" data-label="שבת שלום"><img src="img/theme-shabbat.jpg" alt="מסך שבת שלום עם נרות, חלות וכוס קידוש" width="1600" height="900"></figure>
+        <figure class="slide" data-label="סוכות"><img src="img/theme-sukkot.jpg" alt="מסך חג סוכות עם סוכה וארבעת המינים" width="1600" height="900" loading="lazy"></figure>
+        <figure class="slide" data-label="שמחת תורה"><img src="img/theme-simchat-torah.jpg" alt="מסך חג שמחת תורה עם ספרי תורה וריקודים" width="1600" height="900" loading="lazy"></figure>
+        <figure class="slide" data-label="פורים"><img src="img/theme-purim.jpg" alt="מסך חג פורים עם מגילה, משלוח מנות והמן טאשן" width="1600" height="900" loading="lazy"></figure>
+        <figure class="slide" data-label="פסח"><img src="img/theme-pesach.jpg" alt="מסך חג פסח עם מצות וארבע כוסות" width="1600" height="900" loading="lazy"></figure>
+        <figure class="slide" data-label="ספירת העומר"><img src="img/theme-omer.jpg" alt="התראת ספירת העומר על הלוח" width="1600" height="900" loading="lazy"></figure>
+        <figure class="slide" data-label="תשעה באב"><img src="img/theme-tisha-bav.jpg" alt="מסך תשעה באב עם הכותל המערבי" width="1600" height="900" loading="lazy"></figure>
+    </div></div></div>
+    <div class="chips" data-nav role="group" aria-label="בחירת מסך חג"></div>
+  </div>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <div class="intro" style="margin-inline:auto;text-align:center">
+    <div class="eyebrow">סרטון</div>
+    <h2>הלוח הדיגיטלי בפעולה</h2>
+  </div>
+  <div class="vid">
+    <div class="tv"><div class="bezel"><div class="screen">
+      <iframe src="https://www.youtube.com/embed/5vTRKltLoyA?si=Vi3v3PQvsLws7E04" title="הלוח הדיגיטלי: סרטון הדגמה" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div></div></div>
+    <p style="text-align:center;margin-top:18px;font-size:15px"><a href="https://youtu.be/5vTRKltLoyA" target="_blank" rel="noopener" style="color:var(--gold)">לצפייה ישירות ביוטיוב</a></p>
   </div>
 </div></section>
 
@@ -377,14 +403,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
       <h3>תוכנה למחשב</h3>
       <p>הלוח עצמו, למחשב Windows שמחובר למסך בבית הכנסת. מורידים, מפעילים ומגדירים.</p>
       <a class="btn pri" id="dl-exe" href="https://ogenplay.com/apps/c693ba98-9048-422c-90e4-b11229ffdbe2" target="_blank" rel="noopener"><svg><use href="#i-down"/></svg>הורדת התוכנה למחשב</a>
-      <div class="meta">גרסה 2.4.0 · Windows</div>
+      <div class="meta">Windows</div>
     </div>
     <div class="card">
       <div class="ico"><svg><use href="#i-tv"/></svg></div>
       <h3>גרסת אנדרואיד למסכים</h3>
       <p>הלוח בגרסת אנדרואיד, למסכים ולטלוויזיות עם מערכת הפעלה אנדרואיד.</p>
       <a class="btn sec" id="dl-tv" href="https://ogenplay.com/apps/3f8cb208-5da9-442d-afea-cee9dbbe4c5f" target="_blank" rel="noopener"><svg><use href="#i-down"/></svg>הורדת גרסת האנדרואיד</a>
-      <div class="meta">גרסה 2.4.0 · Android</div>
+      <div class="meta"> Android</div>
     </div>
     <div class="card">
       <div class="ico"><svg><use href="#i-droid"/></svg></div>
@@ -414,52 +440,55 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
     <div class="ico" style="margin:0 auto 18px;width:58px;height:58px"><svg><use href="#i-mail"/></svg></div>
     <h2>שאלות? רוצים להצטרף?</h2>
     <p>נשמח לענות על כל שאלה, לעזור בהתקנה ולשמוע הצעות לשיפור.</p>
-    <a class="btn pri" href="mailto:mtly1111@gmail.com"><svg><use href="#i-mail"/></svg><span class="mail">mtly1111@gmail.com</span></a>
+    <a class="btn pri" href="https://mitmachim.top/post/1224409"><svg><use href="#i-mail"/></svg><span class="mail">כנסו לכאן</span></a>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <span>הלוח הדיגיטלי · גרסה 2.4.0</span>
+  <span>הלוח הדיגיטלי · לע''נ ר' יוסף בן מרים נוסרת ויפה בת עדנה עזת ז''ל</span>
   <span>יצירת קשר: <a class="mail" href="mailto:mtly1111@gmail.com">mtly1111@gmail.com</a></span>
   <span>לשימוש בתי כנסת וקהילות</span>
 </div></footer>
 
 <script>
 (function(){
-  var slides=[].slice.call(document.querySelectorAll('#screen .slide'));
-  var dotsBox=document.getElementById('dots');
-  var show=document.getElementById('show');
-  var cur=0,timer=null,INTERVAL=4500;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var dots=slides.map(function(s,i){
-    var b=document.createElement('button');
-    b.type='button';b.className='dot';
-    b.setAttribute('aria-label','צילום מסך '+(i+1)+' מתוך '+slides.length);
-    b.addEventListener('click',function(){go(i);restart();});
-    dotsBox.appendChild(b);return b;
-  });
-  function go(n){
-    cur=(n+slides.length)%slides.length;
-    slides.forEach(function(s,i){
-      s.classList.toggle('on',i===cur);
-      var img=s.querySelector('img');if(img&&i===cur)img.loading='eager';
+  function init(root){
+    var slides=[].slice.call(root.querySelectorAll('.slide'));
+    var nav=root.querySelector('[data-nav]');
+    var chips=nav.classList.contains('chips');
+    var cur=0,timer=null,INTERVAL=chips?5000:4500;
+    var btns=slides.map(function(s,i){
+      var b=document.createElement('button');
+      b.type='button';b.className=chips?'chip':'dot';
+      if(chips)b.textContent=s.getAttribute('data-label');
+      else b.setAttribute('aria-label','צילום מסך '+(i+1)+' מתוך '+slides.length);
+      b.addEventListener('click',function(){go(i);start();});
+      nav.appendChild(b);return b;
     });
-    dots.forEach(function(d,i){if(i===cur)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current');});
-    var nx=slides[(cur+1)%slides.length].querySelector('img');if(nx)nx.loading='eager';
+    function go(n){
+      cur=(n+slides.length)%slides.length;
+      slides.forEach(function(s,i){
+        s.classList.toggle('on',i===cur);
+        var img=s.querySelector('img');if(img&&i===cur)img.loading='eager';
+      });
+      btns.forEach(function(d,i){if(i===cur)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current');});
+      var nx=slides[(cur+1)%slides.length].querySelector('img');if(nx)nx.loading='eager';
+    }
+    function start(){if(reduce)return;stop();timer=setInterval(function(){go(cur+1);},INTERVAL);}
+    function stop(){if(timer){clearInterval(timer);timer=null;}}
+    root.addEventListener('mouseenter',stop);
+    root.addEventListener('mouseleave',start);
+    document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+    var x0=null;
+    root.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+    root.addEventListener('touchend',function(e){
+      if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;
+      if(Math.abs(dx)>40){go(cur+(dx<0?1:-1));start();}
+    });
+    go(0);start();
   }
-  function start(){if(reduce)return;stop();timer=setInterval(function(){go(cur+1);},INTERVAL);}
-  function stop(){if(timer){clearInterval(timer);timer=null;}}
-  function restart(){start();}
-  show.addEventListener('mouseenter',stop);
-  show.addEventListener('mouseleave',start);
-  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
-  var x0=null;
-  show.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
-  show.addEventListener('touchend',function(e){
-    if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;
-    if(Math.abs(dx)>40){go(cur+(dx<0?1:-1));restart();}
-  });
-  go(0);start();
+  [].forEach.call(document.querySelectorAll('.show'),init);
 })();
 </script>
 </body>
