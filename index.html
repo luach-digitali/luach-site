@@ -530,12 +530,23 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
 #lc-send{border:0;border-radius:12px;padding:0 16px;background:var(--gold);color:#241903;font:700 15px var(--f-body);cursor:pointer}
 #lc-send:disabled{opacity:.5;cursor:default}
 #lc-note{padding:0 14px 10px;font-size:12px;color:var(--mut)}
-@media (max-width:520px){#lc-panel{inset-inline:8px;inset-block-end:8px;width:auto;height:min(78vh,560px)}}
+#lc-nudge{position:fixed;inset-block-end:82px;inset-inline-start:20px;z-index:9998;max-width:270px;display:none;background:#0b1330;border:1px solid var(--gold);border-radius:16px;padding:14px 16px 14px 34px;box-shadow:0 12px 36px rgba(0,0,0,.55);font:600 15.5px/1.55 var(--f-body);color:var(--paper);cursor:pointer;direction:rtl}
+#lc-nudge.show{display:block;animation:lcpop .45s ease-out both}
+#lc-nudge::after{content:"";position:absolute;bottom:-8px;right:40px;width:14px;height:14px;background:#0b1330;border-right:1px solid var(--gold);border-bottom:1px solid var(--gold);transform:rotate(45deg)}
+#lc-nudge-x{position:absolute;top:4px;left:6px;background:none;border:0;color:var(--mut);font-size:22px;line-height:1;cursor:pointer;padding:2px 6px}
+#lc-nudge-x:hover{color:var(--paper)}
+@keyframes lcpop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#lc-nudge.show{animation:none}}
+@media (max-width:520px){#lc-nudge{inset-inline-end:16px;max-width:none}#lc-panel{inset-inline:8px;inset-block-end:8px;width:auto;height:min(78vh,560px)}}
 </style>
 <button id="lc-btn" type="button" aria-label="פתיחת צ'אט תמיכה" hidden>
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
   שאלות על התוכנה?
 </button>
+<div id="lc-nudge" role="status">
+  <button id="lc-nudge-x" type="button" aria-label="סגירת ההצעה">×</button>
+  <span>שלום! אפשר לעזור לכם בהתקנה או בהפעלה של הלוח הדיגיטלי? לחצו ושאלו.</span>
+</div>
 <div id="lc-panel" role="dialog" aria-label="צ'אט תמיכה" aria-modal="false">
   <div id="lc-head"><b>עוזר הלוח הדיגיטלי</b><button id="lc-close" type="button" aria-label="סגירה">×</button></div>
   <div id="lc-log" aria-live="polite"></div>
@@ -549,12 +560,16 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
 <script>
 (function(){
   // כתובת ה-Worker. מחליפים אחרי ההקמה (ראה SETUP.md).
-var WORKER_URL="https://luach-chatbot.luach-bot.workers.dev";
+  var WORKER_URL="https://luach-chatbot.luach-bot.workers.dev";
   var btn=document.getElementById('lc-btn');
   if(!WORKER_URL||WORKER_URL.indexOf('YOUR-')>-1)return; // עד שלא הוגדרה כתובת, הכפתור לא מוצג
   var panel=document.getElementById('lc-panel'),log=document.getElementById('lc-log'),
       form=document.getElementById('lc-form'),inp=document.getElementById('lc-in'),
       send=document.getElementById('lc-send'),chips=document.getElementById('lc-chips');
+  var nudge=document.getElementById('lc-nudge');
+  // הקפצה אוטומטית: אחרי AUTO_DELAY אלפיות שנייה מופיעה בועה עם הצעת עזרה (פעם אחת לכל ביקור).
+  // לפתיחה אוטומטית של חלון הצ'אט כולו, שנה את AUTO_OPEN_PANEL ל-true. לכיבוי ההקפצה, שנה את AUTO_NUDGE ל-false.
+  var AUTO_NUDGE=true,AUTO_DELAY=3500,AUTO_OPEN_PANEL=false;
   var history=[],busy=false,greeted=false;
   var QUESTIONS=['איך מתקינים את התוכנה?','איך מעדכנים שעת מניין?','איך מחברים את האפליקציה ללוח?','איך עובד הקו הטלפוני?'];
   btn.hidden=false;
@@ -564,7 +579,7 @@ var WORKER_URL="https://luach-chatbot.luach-bot.workers.dev";
     log.appendChild(d);log.scrollTop=log.scrollHeight;return d;
   }
   function open(){
-    panel.classList.add('open');btn.hidden=true;
+    panel.classList.add('open');btn.hidden=true;nudge.classList.remove('show');
     if(!greeted){
       greeted=true;
       add('שלום! אני עוזר אוטומטי ואשמח לעזור בכל שאלה על הלוח הדיגיטלי: התקנה, הפעלה, הגדרות והאפליקציה.','bot');
@@ -598,6 +613,18 @@ var WORKER_URL="https://luach-chatbot.luach-bot.workers.dev";
       .then(function(){busy=false;send.disabled=false;log.scrollTop=log.scrollHeight;inp.focus();});
   }
   btn.addEventListener('click',open);
+  nudge.addEventListener('click',function(e){if(e.target.id==='lc-nudge-x'){nudge.classList.remove('show');}else{open();}});
+  if(AUTO_NUDGE){
+    var seen=false;try{seen=!!sessionStorage.getItem('lc-nudged');}catch(e){}
+    if(!seen){
+      setTimeout(function(){
+        if(panel.classList.contains('open'))return;
+        try{sessionStorage.setItem('lc-nudged','1');}catch(e){}
+        if(AUTO_OPEN_PANEL){open();}
+        else{nudge.classList.add('show');setTimeout(function(){nudge.classList.remove('show');},20000);}
+      },AUTO_DELAY);
+    }
+  }
   document.getElementById('lc-close').addEventListener('click',close);
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('open'))close();});
   form.addEventListener('submit',function(e){e.preventDefault();ask(inp.value);});
