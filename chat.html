@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>עוזר הלוח הדיגיטלי: שאלות ותשובות</title>
+<meta name="description" content="שאלו את העוזר האוטומטי כל שאלה על התקנה, הפעלה והגדרות של הלוח הדיגיטלי.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#070d24">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#070d24;--line:rgba(226,184,96,.20);--gold:#e8c374;--gold-d:#b98a2c;--paper:#f6efdc;--mut:#a9b2d0;
+  --f-display:"Frank Ruhl Libre","David Libre","Times New Roman",serif;--f-body:"Heebo","Assistant","Segoe UI",system-ui,Arial,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--paper);font-family:var(--f-body);direction:rtl;font-size:17px;
+  background-image:radial-gradient(900px 500px at 90% -10%,rgba(232,195,116,.14),transparent 60%),radial-gradient(700px 500px at -5% 40%,rgba(70,100,220,.14),transparent 60%);background-repeat:no-repeat}
+.app{max-width:760px;height:100%;margin:0 auto;display:flex;flex-direction:column;padding:0 12px}
+header{display:flex;align-items:center;gap:12px;padding:16px 4px;border-bottom:1px solid var(--line)}
+header h1{font-family:var(--f-display);font-size:22px;margin:0;margin-inline-end:auto;line-height:1.2}
+header a{color:var(--gold);text-decoration:none;font-weight:700;font-size:15px;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+header a:hover{background:rgba(232,195,116,.12)}
+#log{flex:1;overflow-y:auto;padding:18px 2px;display:flex;flex-direction:column;gap:12px;line-height:1.65}
+.m{max-width:88%;padding:11px 15px;border-radius:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.m.bot{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid var(--line);border-end-start-radius:4px}
+.m.me{align-self:flex-end;background:var(--gold);color:#241903;border-end-end-radius:4px}
+.m.err{color:#ffb4a8}
+.m a{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 2px 12px}
+.chip{background:none;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:7px 14px;font:600 15px var(--f-body);cursor:pointer}
+.chip:hover{background:rgba(232,195,116,.12)}
+form{display:flex;gap:8px;padding:12px 0 6px}
+textarea{flex:1;resize:none;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--paper);padding:12px 14px;font:17px var(--f-body);max-height:120px}
+textarea:focus{outline:2px solid var(--gold)}
+button.send{border:0;border-radius:14px;padding:0 22px;background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#241903;font:700 16px var(--f-body);cursor:pointer}
+button.send:disabled{opacity:.5;cursor:default}
+.note{font-size:12.5px;color:var(--mut);padding:0 2px calc(12px + env(safe-area-inset-bottom))}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>עוזר הלוח הדיגיטלי</h1>
+    <a href="./">לאתר</a>
+  </header>
+  <div id="log" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form id="form" autocomplete="off">
+    <textarea id="in" rows="1" maxlength="800" placeholder="כתבו שאלה על התוכנה…" aria-label="הודעה" autofocus></textarea>
+    <button class="send" id="send" type="submit">שליחה</button>
+  </form>
+  <div class="note">העוזר הוא בינה מלאכותית ועלול לטעות. נא לא לכתוב פרטים אישיים.</div>
+</div>
+<script>
+(function(){
+  var WORKER_URL="https://luach-chatbot.luach-bot.workers.dev";
+  var log=document.getElementById('log'),form=document.getElementById('form'),inp=document.getElementById('in'),
+      send=document.getElementById('send'),chips=document.getElementById('chips');
+  var history=[],busy=false;
+  var QUESTIONS=['איך מתקינים את התוכנה?','איך מעדכנים שעת מניין?','איך מחברים את האפליקציה ללוח?','איך עובד הקו הטלפוני?'];
+  function add(text,cls){var d=document.createElement('div');d.className='m '+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+  add('שלום! אני עוזר אוטומטי ואשמח לעזור בכל שאלה על הלוח הדיגיטלי: התקנה, הפעלה, הגדרות והאפליקציה.','bot');
+  QUESTIONS.forEach(function(q){var c=document.createElement('button');c.type='button';c.className='chip';c.textContent=q;c.addEventListener('click',function(){ask(q);});chips.appendChild(c);});
+  function ask(q){
+    q=(q||'').trim();if(!q||busy)return;
+    chips.style.display='none';add(q,'me');history.push({role:'user',content:q});
+    inp.value='';busy=true;send.disabled=true;
+    var wait=add('מקליד…','bot');
+    fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-10)})})
+      .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+      .then(function(o){
+        if(o.s===200&&o.j.reply){wait.textContent=o.j.reply;history.push({role:'assistant',content:o.j.reply});}
+        else{history.pop();wait.classList.add('err');
+          wait.textContent=o.s===429?'שלחתם הרבה הודעות בזמן קצר. נסו שוב בעוד כמה דקות.':'כרגע אי אפשר לענות. אפשר לפנות אלינו במייל mtly1111@gmail.com או בפורום מתמחים.';}
+      })
+      .catch(function(){history.pop();wait.classList.add('err');wait.textContent='אירעה שגיאת תקשורת. נסו שוב בעוד רגע.';})
+      .then(function(){busy=false;send.disabled=false;log.scrollTop=log.scrollHeight;inp.focus();});
+  }
+  form.addEventListener('submit',function(e){e.preventDefault();ask(inp.value);});
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask(inp.value);}});
+  // קישור ישיר עם שאלה מוכנה: chat.html?q=איך מתקינים
+  try{var q0=new URLSearchParams(location.search).get('q');if(q0)ask(q0.slice(0,800));}catch(e){}
+})();
+</script>
+</body>
+</html>
