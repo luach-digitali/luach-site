@@ -174,6 +174,18 @@ section{padding-block:88px}
 .gal figcaption{font-size:14px;color:var(--mut);padding:10px 4px 4px;text-align:center}
 
 /* download */
+#mail-ov{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(3,6,18,.72)}
+#mail-ov.show{display:flex}
+#mail-box{width:min(420px,100%);background:#0b1330;border:1px solid var(--gold);border-radius:18px;padding:22px 20px 18px;box-shadow:0 18px 50px rgba(0,0,0,.6);direction:rtl;text-align:center}
+#mail-box h3{margin:0 0 6px;font-family:var(--f-display);font-size:22px;color:var(--paper)}
+#mail-box p{margin:0 0 16px;color:var(--mut);font-size:15.5px;line-height:1.55}
+#mail-box .opt{display:block;width:100%;margin-top:10px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--paper);font:700 16px var(--f-body);text-decoration:none;cursor:pointer}
+#mail-box .opt:hover{background:rgba(232,195,116,.14);border-color:var(--gold)}
+#mail-box .opt.first{background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#241903;border-color:var(--gold)}
+#mail-box .addr{margin-top:14px;font-size:14px;color:var(--mut);direction:ltr;unicode-bidi:plaintext;user-select:all}
+#mail-x{display:block;margin:12px auto 0;background:none;border:0;color:var(--mut);font:600 14px var(--f-body);cursor:pointer;text-decoration:underline}
+.blocked{display:block;text-align:center;margin-top:12px;font-size:14.5px;font-weight:700;color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+.blocked:hover{color:var(--paper)}
 .dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:44px}
 @media(max-width:1000px){.dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.dl{grid-template-columns:1fr}}
@@ -428,6 +440,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
       <h3>תוכנה למחשב</h3>
       <p>הלוח עצמו, למחשב Windows שמחובר למסך בבית הכנסת. מורידים, מפעילים ומגדירים.</p>
       <a class="btn pri" id="dl-exe" href="https://ogenplay.com/apps/c693ba98-9048-422c-90e4-b11229ffdbe2" target="_blank" rel="noopener"><svg><use href="#i-down"/></svg>הורדת התוכנה למחשב</a>
+      <a class="blocked" data-subject="הלוח הדיגיטלי" href="mailto:mtly1111@gmail.com?subject=%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99&body=%D7%A0%D7%90%20%D7%9E%D7%9C%D7%90%D7%95%20%D7%90%D7%AA%20%D7%94%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%94%D7%91%D7%90%D7%99%D7%9D%20%D7%95%D7%AA%D7%95%D7%9A%20%D7%9B%D7%9E%D7%94%20%D7%93%D7%A7%27%20%D7%94%D7%9C%D7%95%D7%97%20%D7%90%D7%A6%D7%9C%D7%9B%D7%9D%0D%0A%D7%A9%D7%9C%D7%95%D7%9D%20%D7%95%D7%91%D7%A8%D7%9B%D7%94%2C%20%D7%90%D7%A0%D7%95%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%99%D7%9D%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%94%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%20%D7%A9%D7%9C%D7%A0%D7%95%0D%0A%D7%A9%D7%9D%20%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%9D%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%3A%0D%0A%D7%A9%D7%9D%20%D7%95%D7%A4%D7%9C%27%20%D7%92%D7%91%D7%90%D7%99%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%0D%0A%D7%9E%D7%90%D7%99%D7%A4%D7%94%20%D7%A9%D7%9E%D7%A2%D7%A0%D7%95%20%D7%A2%D7%9C%20%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%3A">חסומים? לחצו כאן!</a>
       <div class="meta">Windows</div>
     </div>
     <div class="card">
@@ -435,6 +448,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
       <h3>מדריך למשתמש</h3>
       <p>מדריך מפורט להפעלה, להגדרות ולהתאמה אישית של הלוח.</p>
       <a class="btn sec" id="dl-guide" href="https://drive.google.com/drive/folders/1CZIjUCzaWGrdm42RIK17ROt_77pLHNy6?usp=drive_link" target="_blank" rel="noopener"><svg><use href="#i-down"/></svg>הורדת מדריך למשתמש</a>
+      <a class="blocked" data-subject="הלוח הדיגיטלי" href="mailto:mtly1111@gmail.com?subject=%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99&body=%D7%A0%D7%90%20%D7%9E%D7%9C%D7%90%D7%95%20%D7%90%D7%AA%20%D7%94%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%94%D7%91%D7%90%D7%99%D7%9D%20%D7%95%D7%AA%D7%95%D7%9A%20%D7%9B%D7%9E%D7%94%20%D7%93%D7%A7%27%20%D7%94%D7%9C%D7%95%D7%97%20%D7%90%D7%A6%D7%9C%D7%9B%D7%9D%0D%0A%D7%A9%D7%9C%D7%95%D7%9D%20%D7%95%D7%91%D7%A8%D7%9B%D7%94%2C%20%D7%90%D7%A0%D7%95%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%99%D7%9D%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%94%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%20%D7%A9%D7%9C%D7%A0%D7%95%0D%0A%D7%A9%D7%9D%20%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%9D%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%3A%0D%0A%D7%A9%D7%9D%20%D7%95%D7%A4%D7%9C%27%20%D7%92%D7%91%D7%90%D7%99%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%0D%0A%D7%9E%D7%90%D7%99%D7%A4%D7%94%20%D7%A9%D7%9E%D7%A2%D7%A0%D7%95%20%D7%A2%D7%9C%20%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%3A">חסומים? לחצו כאן!</a>
       <div class="meta">Google Drive</div>
     </div>
     <div class="card">
@@ -442,6 +456,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
       <h3>גרסת אנדרואיד למסכים</h3>
       <p>הלוח בגרסת אנדרואיד, למסכים ולטלוויזיות עם מערכת הפעלה אנדרואיד.</p>
       <a class="btn sec" id="dl-tv" href="https://ogenplay.com/apps/3f8cb208-5da9-442d-afea-cee9dbbe4c5f" target="_blank" rel="noopener"><svg><use href="#i-down"/></svg>הורדת גרסת האנדרואיד</a>
+      <a class="blocked" data-subject="גרסת אנדרואיד" href="mailto:mtly1111@gmail.com?subject=%D7%92%D7%A8%D7%A1%D7%AA%20%D7%90%D7%A0%D7%93%D7%A8%D7%95%D7%90%D7%99%D7%93&body=%D7%A0%D7%90%20%D7%9E%D7%9C%D7%90%D7%95%20%D7%90%D7%AA%20%D7%94%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%94%D7%91%D7%90%D7%99%D7%9D%20%D7%95%D7%AA%D7%95%D7%9A%20%D7%9B%D7%9E%D7%94%20%D7%93%D7%A7%27%20%D7%94%D7%9C%D7%95%D7%97%20%D7%90%D7%A6%D7%9C%D7%9B%D7%9D%0D%0A%D7%A9%D7%9C%D7%95%D7%9D%20%D7%95%D7%91%D7%A8%D7%9B%D7%94%2C%20%D7%90%D7%A0%D7%95%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%99%D7%9D%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%94%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%20%D7%A9%D7%9C%D7%A0%D7%95%0D%0A%D7%A9%D7%9D%20%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%9D%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%3A%0D%0A%D7%A9%D7%9D%20%D7%95%D7%A4%D7%9C%27%20%D7%92%D7%91%D7%90%D7%99%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%0D%0A%D7%9E%D7%90%D7%99%D7%A4%D7%94%20%D7%A9%D7%9E%D7%A2%D7%A0%D7%95%20%D7%A2%D7%9C%20%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%3A">חסומים? לחצו כאן!</a>
       <div class="meta"> Android</div>
     </div>
     <div class="card">
@@ -449,6 +464,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
       <h3>אפליקציה לניהול וצפייה מרחוק</h3>
       <p>לצפייה ולניהול הלוח מהטלפון. מתאימה למתפללים ולגבאים.</p>
       <a class="btn sec" id="dl-apk" href="https://ogenplay.com/apps/93834088-785f-45a2-90e4-5f4a35b1911e" target="_blank" rel="noopener"><svg><use href="#i-down"/></svg>הורדת האפליקציה לאנדרואיד</a>
+      <a class="blocked" data-subject="הלוח הדיגיטלי" href="mailto:mtly1111@gmail.com?subject=%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99&body=%D7%A0%D7%90%20%D7%9E%D7%9C%D7%90%D7%95%20%D7%90%D7%AA%20%D7%94%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%94%D7%91%D7%90%D7%99%D7%9D%20%D7%95%D7%AA%D7%95%D7%9A%20%D7%9B%D7%9E%D7%94%20%D7%93%D7%A7%27%20%D7%94%D7%9C%D7%95%D7%97%20%D7%90%D7%A6%D7%9C%D7%9B%D7%9D%0D%0A%D7%A9%D7%9C%D7%95%D7%9D%20%D7%95%D7%91%D7%A8%D7%9B%D7%94%2C%20%D7%90%D7%A0%D7%95%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%99%D7%9D%20%D7%91%D7%AA%D7%95%D7%9B%D7%A0%D7%94%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%20%D7%A9%D7%9C%D7%A0%D7%95%0D%0A%D7%A9%D7%9D%20%D7%95%D7%9E%D7%99%D7%A7%D7%95%D7%9D%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%3A%0D%0A%D7%A9%D7%9D%20%D7%95%D7%A4%D7%9C%27%20%D7%92%D7%91%D7%90%D7%99%20%D7%91%D7%99%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%AA%0D%0A%D7%9E%D7%90%D7%99%D7%A4%D7%94%20%D7%A9%D7%9E%D7%A2%D7%A0%D7%95%20%D7%A2%D7%9C%20%D7%94%D7%9C%D7%95%D7%97%20%D7%94%D7%93%D7%99%D7%92%D7%99%D7%98%D7%9C%D7%99%3A">חסומים? לחצו כאן!</a>
       <div class="meta">Android</div>
     </div>
   </div>
@@ -523,6 +539,48 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
   [].forEach.call(document.querySelectorAll('.show'),init);
 })();
 </script>
+
+<div id="mail-ov" role="dialog" aria-modal="true" aria-labelledby="mail-t">
+  <div id="mail-box">
+    <h3 id="mail-t">איך לשלוח את הבקשה?</h3>
+    <p>בחרו את תיבת המייל שלכם. ההודעה תיפתח כשהפרטים כבר מוכנים למילוי.</p>
+    <a class="opt first" id="m-gmail" target="_blank" rel="noopener">פתיחה ב-Gmail (בדפדפן)</a>
+    <a class="opt" id="m-outlook" target="_blank" rel="noopener">פתיחה ב-Outlook / Hotmail (בדפדפן)</a>
+    <a class="opt" id="m-app">תוכנת המייל במחשב או בטלפון</a>
+    <button class="opt" id="m-copy" type="button">העתקת הפרטים (לשליחה ממקום אחר)</button>
+    <div class="addr">mtly1111@gmail.com</div>
+    <button id="mail-x" type="button">סגירה</button>
+  </div>
+</div>
+<script>
+(function(){
+  var TO="mtly1111@gmail.com";
+  var BODY=["נא מלאו את הפרטים הבאים ותוך כמה דק' הלוח אצלכם","שלום וברכה, אנו מעוניינים בתוכנה לבית הכנסת שלנו","שם ומיקום בית הכנסת:","שם ופל' גבאי בית הכנסת","מאיפה שמענו על הלוח הדיגיטלי:"].join("\n");
+  var ov=document.getElementById('mail-ov'),subject='',e=encodeURIComponent;
+  function enc(t){return e(t);}
+  function open(sub){
+    subject=sub;
+    document.getElementById('m-gmail').href="https://mail.google.com/mail/?view=cm&fs=1&to="+enc(TO)+"&su="+enc(sub)+"&body="+enc(BODY);
+    document.getElementById('m-outlook').href="https://outlook.live.com/mail/0/deeplink/compose?to="+enc(TO)+"&subject="+enc(sub)+"&body="+enc(BODY);
+    document.getElementById('m-app').href="mailto:"+TO+"?subject="+enc(sub)+"&body="+enc(BODY).replace(/%0A/g,"%0D%0A");
+    document.getElementById('m-copy').textContent='העתקת הפרטים (לשליחה ממקום אחר)';
+    ov.classList.add('show');document.getElementById('m-gmail').focus();
+  }
+  function close(){ov.classList.remove('show');}
+  Array.prototype.forEach.call(document.querySelectorAll('a.blocked'),function(a){
+    a.addEventListener('click',function(ev){ev.preventDefault();open(a.getAttribute('data-subject')||'הלוח הדיגיטלי');});
+  });
+  document.getElementById('mail-x').addEventListener('click',close);
+  ov.addEventListener('click',function(ev){if(ev.target===ov)close();});
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape')close();});
+  document.getElementById('m-copy').addEventListener('click',function(){
+    var t="אל: "+TO+"\nנושא: "+subject+"\n\n"+BODY,btn=this;
+    function ok(){btn.textContent='הועתק. אפשר להדביק בהודעה חדשה';}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){});}
+    else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(x){}document.body.removeChild(ta);}
+  });
+})();
+</script>
 <!-- ===== צ'אט תמיכה – הלוח הדיגיטלי ===== -->
 <style>
 #lc-btn{position:fixed;inset-block-end:20px;inset-inline-start:20px;z-index:9998;display:flex;align-items:center;gap:8px;padding:13px 20px;border-radius:999px;border:1px solid var(--gold);background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#241903;font:700 16px var(--f-body);cursor:pointer;box-shadow:0 8px 28px rgba(0,0,0,.45)}
@@ -574,7 +632,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
     <textarea id="lc-in" rows="1" maxlength="800" placeholder="כתבו שאלה על התוכנה…" aria-label="הודעה"></textarea>
     <button id="lc-send" type="submit">שליחה</button>
   </form>
-  <div id="lc-note">העוזר הוא בינה מלאכותית ועלול לטעות. נא לא לכתוב פרטים אישיים.</div>
+  <div id="lc-note">העוזר הוא בינה מלאכותית ועלול לטעות. השאלות נשמרות לצורך שיפור השירות, ולכן נא לא לכתוב פרטים אישיים.</div>
 </div>
 <script>
 (function(){
